@@ -10,9 +10,9 @@ class Location extends Model
 
     protected $fillable = ['date', 'time', 'finalised'];
 
-    public function locations()
+    public function games()
     {
-        return $this->hasMany(Location::class);
+        return $this->hasMany(Game::class);
     }
 
     public function users()
