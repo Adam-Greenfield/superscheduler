@@ -35,7 +35,7 @@ class CreateGameLocationTables extends Migration
             $table->boolean('finalised');
             $table->timestamps();
 
-            $table->integer('location_id')->unsigned();
+            $table->integer('location_id')->unsigned()->nullable();
             $table->foreign('location_id')->references('id')->on('locations');
         });
 
