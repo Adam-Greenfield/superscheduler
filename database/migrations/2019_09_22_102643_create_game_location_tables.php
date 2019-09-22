@@ -13,13 +13,6 @@ class CreateGameLocationTables extends Migration
      */
     public function up()
     {
-        Schema::create('games', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->date('date');
-            $table->time('time');
-            $table->boolean('finalised');
-            $table->timestamps();
-        });
 
         Schema::create('locations', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -30,9 +23,18 @@ class CreateGameLocationTables extends Migration
             $table->string('postcode');
             $table->longtext('notes');
             $table->timestamps();
+
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
-        Schema::table('games', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->date('date');
+            $table->time('time');
+            $table->boolean('finalised');
+            $table->timestamps();
+
             $table->integer('location_id')->unsigned();
             $table->foreign('location_id')->references('id')->on('locations');
         });
@@ -43,13 +45,6 @@ class CreateGameLocationTables extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->boolean('attending')->default(0);
-        });
-
-        Schema::create('location_user', function (Blueprint $table) {
-            $table->integer('location_id')->unsigned();
-            $table->foreign('location_id')->references('id')->on('location');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('game_location', function (Blueprint $table){
@@ -68,13 +63,8 @@ class CreateGameLocationTables extends Migration
     public function down()
     {
         Schema::dropIfExists('game_location');
-        Schema::dropIfExists('location_user');
         Schema::dropIfExists('game_user');
-        Schema::table('games', function (Blueprint $table){
-            $table->dropForeign('games_location_id_foreign');
-        });
         Schema::dropIfExists('locations');
         Schema::dropIfExists('games');
-
     }
 }
