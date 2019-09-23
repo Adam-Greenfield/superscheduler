@@ -37,6 +37,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('profile') }}">{{ __('Profile') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('calender') }}">{{ __('Calender') }}</a>
+                        </li>
 
                     @endauth
 

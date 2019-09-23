@@ -32,7 +32,7 @@ class CreateGameLocationTables extends Migration
             $table->bigIncrements('id');
             $table->date('date');
             $table->time('time');
-            $table->boolean('finalised');
+            $table->boolean('finalised')->default(0);
             $table->timestamps();
 
             $table->integer('location_id')->unsigned()->nullable();

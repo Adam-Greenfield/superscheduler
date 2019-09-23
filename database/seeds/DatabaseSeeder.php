@@ -17,11 +17,22 @@ class DatabaseSeeder extends Seeder
     {
         foreach (range(1, 10) as $i) {
             DB::table('users')->insert([
-                'name' => Str::random(10),
+                'username' => Str::random(10),
+                'first_name' => Str::random(10),
+                'last_name' => Str::random(10),
                 'email' => Str::random(10).'@gmail.com',
                 'password' => bcrypt('password'),
             ]);
         }
+
+        DB::table('users')->insert([
+            'username' => 'admin',
+            'first_name' => 'Adam',
+            'last_name' => 'Greenfield',
+            'email' => 'ajamesgreenfield@gmail.com',
+            'password' => bcrypt('password'),
+            'admin' => 1
+        ]);
 
         DB::table('locations')->insert([
             'name' => 'big house',
@@ -83,6 +94,5 @@ class DatabaseSeeder extends Seeder
         $game1->save();
         $game2->locations()->attach([$location1->id, $location2->id]);
         $game3->locations()->attach([$location1->id, $location3->id, $location2->id]);
-        
     }
 }
